@@ -6,7 +6,9 @@ export default async function About() {
   const profile = await getProfile();
 
   return (
-    <div className="max-w-4xl mx-auto py-20 px-6">
+    // ADDED: 'bg-white text-zinc-900 min-h-screen'
+    // This forces light mode colors regardless of phone settings
+    <div className="max-w-4xl mx-auto py-20 px-6 bg-white text-zinc-900 min-h-screen">
       <div className="flex flex-col md:flex-row items-center gap-12 mb-16">
         
         {/* Profile Image */}
