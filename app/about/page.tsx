@@ -16,7 +16,7 @@ export default async function About() {
                 src={profile.profileImage}
                 alt={profile.fullName}
                 fill
-                className="object-cover rounded-full border-4 border-gray-800 shadow-xl"
+                className="object-cover object-top rounded-full border-4 border-gray-800 shadow-xl"
                 />
             )}
         </div>

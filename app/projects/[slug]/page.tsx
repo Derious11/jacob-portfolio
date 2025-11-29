@@ -49,6 +49,24 @@ export default async function Project({ params }: Props) {
       <div className="text-lg text-gray-700 mt-5 leading-relaxed">
         <PortableText value={project.content} />
       </div>
+
+      {project.gallery && (
+        <div className="mt-12">
+          <h3 className="text-2xl font-bold mb-6">Storyboard Sequence</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {project.gallery.map((image, index) => (
+                <div key={index} className="relative h-64 md:h-80 w-full">
+                    <Image
+                        src={image}
+                        alt={`Panel ${index + 1}`}
+                        fill
+                        className="object-contain bg-gray-100 rounded-lg border border-gray-200"
+                    />
+                </div>
+            ))}
+        </div>
+    </div>
+)}
     </div>
   );
 }

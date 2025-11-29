@@ -40,6 +40,15 @@ const project = {
       type: "array",
       of: [{ type: "block" }],
     },
+    {
+      name: "gallery",
+      title: "Storyboard Gallery",
+      type: "array",
+      of: [{ type: "image" }],
+      options: {
+        layout: 'grid'
+    },
+    },
   ],
 };
 

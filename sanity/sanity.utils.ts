@@ -25,6 +25,7 @@ export async function getProject(slug: string) {
       name,
       "slug": slug.current,
       "image": image.asset->url,
+      "gallery": gallery[].asset->url,
       url,
       content
     }`,
