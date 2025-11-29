@@ -31,3 +31,18 @@ export async function getProject(slug: string) {
     { slug }
   );
 }
+
+export async function getProfile() {
+  return client.fetch(
+    groq`*[_type == "profile"][0]{
+      _id,
+      fullName,
+      headline,
+      "profileImage": profileImage.asset->url,
+      shortBio,
+      fullBio,
+      "resumeURL": resume.asset->url,
+      socials
+    }`
+  );
+  }
