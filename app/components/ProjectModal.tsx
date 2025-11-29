@@ -3,7 +3,7 @@
 import { Project } from "../../types/Project";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, PanInfo } from "framer-motion"; // Import PanInfo
+import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 type Props = {
@@ -26,10 +26,11 @@ export default function ProjectModal({ project, isOpen, onClose }: Props) {
 
   // SWIPE LOGIC
   const onDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    if (info.offset.x > 50) {
-      prevImage(); // Dragged Right -> Go Prev
-    } else if (info.offset.x < -50) {
-      nextImage(); // Dragged Left -> Go Next
+    const swipeThreshold = 50;
+    if (info.offset.x > swipeThreshold) {
+      prevImage();
+    } else if (info.offset.x < -swipeThreshold) {
+      nextImage();
     }
   };
 
@@ -62,6 +63,7 @@ export default function ProjectModal({ project, isOpen, onClose }: Props) {
           onClick={(e) => e.stopPropagation()}
           className="relative w-full max-w-7xl h-[85vh] bg-zinc-900 rounded-xl overflow-hidden flex flex-col md:flex-row shadow-2xl border border-zinc-800"
         >
+          {/* Close Button */}
           <button
             onClick={onClose}
             className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-red-600 text-white rounded-full transition duration-200"
@@ -69,44 +71,46 @@ export default function ProjectModal({ project, isOpen, onClose }: Props) {
             <X size={24} />
           </button>
 
-          {/* LEFT SIDE: The Image Stage (With Swipe) */}
+          {/* LEFT SIDE: The Image Stage */}
           <div className="relative w-full md:w-3/4 h-2/3 md:h-full bg-black flex items-center justify-center group overflow-hidden">
+            {/* Draggable Area */}
             <motion.div 
                 className="relative w-full h-full p-4 cursor-grab active:cursor-grabbing"
-                drag="x" // Enable Horizontal Drag
-                dragConstraints={{ left: 0, right: 0 }} // Snap back after drag
-                dragElastic={0.2} // Rubber band effect
-                onDragEnd={onDragEnd} // Trigger slide change
+                drag="x" 
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={onDragEnd}
             >
               <Image
                 src={images[currentIndex]}
                 alt={`Slide ${currentIndex + 1}`}
                 fill
-                className="object-contain pointer-events-none" // pointer-events-none prevents image dragging ghosting
+                className="object-contain pointer-events-none" // prevents ghosting
                 priority
               />
             </motion.div>
 
-            {/* Navigation Arrows */}
+            {/* Navigation Arrows (HIDDEN ON MOBILE, VISIBLE ON DESKTOP) */}
             {images.length > 1 && (
               <>
                 <button
                   onClick={prevImage}
-                  // UPDATED CLASS: Removed 'opacity-0' default. Now visible on mobile, semi-transparent on desktop.
-                  className="absolute left-4 p-3 bg-black/50 text-white rounded-full hover:bg-white hover:text-black transition backdrop-blur-md opacity-100 md:opacity-0 md:group-hover:opacity-100"
+                  // CHANGE: 'hidden' by default, 'md:flex' on desktop
+                  className="hidden md:flex absolute left-4 p-3 bg-black/50 text-white rounded-full hover:bg-white hover:text-black transition backdrop-blur-md items-center justify-center opacity-0 group-hover:opacity-100"
                 >
                   <ChevronLeft size={32} />
                 </button>
                 <button
                   onClick={nextImage}
-                  // UPDATED CLASS: Same here.
-                  className="absolute right-4 p-3 bg-black/50 text-white rounded-full hover:bg-white hover:text-black transition backdrop-blur-md opacity-100 md:opacity-0 md:group-hover:opacity-100"
+                  // CHANGE: 'hidden' by default, 'md:flex' on desktop
+                  className="hidden md:flex absolute right-4 p-3 bg-black/50 text-white rounded-full hover:bg-white hover:text-black transition backdrop-blur-md items-center justify-center opacity-0 group-hover:opacity-100"
                 >
                   <ChevronRight size={32} />
                 </button>
               </>
             )}
 
+            {/* Progress Bar (Visual Cue for Sequence) */}
             <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-800">
               <div
                 className="h-full bg-blue-500 transition-all duration-300 ease-out"
@@ -125,8 +129,11 @@ export default function ProjectModal({ project, isOpen, onClose }: Props) {
             </p>
 
             <div className="flex-grow overflow-y-auto text-zinc-300 text-sm leading-relaxed mb-6">
+              {/* Updated instructions */}
               <p>
-                Swipe or use arrows to view the storyboard sequence.
+                <span className="md:hidden">Swipe left or right</span>
+                <span className="hidden md:inline">Use arrow keys</span>
+                {" "}to view the sequence.
               </p>
             </div>
 
