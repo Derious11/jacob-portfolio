@@ -49,6 +49,20 @@ const project = {
         layout: 'grid'
     },
     },
+    {
+  name: "buttonText",
+  title: "Button Label",
+  type: "string",
+  options: {
+    list: [
+      { title: "Watch Video", value: "Watch Video" },
+      { title: "Visit Store", value: "Visit Store" },
+      { title: "Read Comic", value: "Read Comic" },
+      { title: "View Live Project", value: "View Live Project" },
+    ],
+  },
+  description: "What should the link button say? (Requires a URL to appear)",
+},
   ],
 };
 

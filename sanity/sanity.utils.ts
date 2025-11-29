@@ -10,9 +10,12 @@ export async function getProjects() {
       name,
       "slug": slug.current,
       "image": image.asset->url,
+      "gallery": gallery[].asset->url,
       url,
       content
-    }`
+    }`,
+    {},
+    {next: { revalidate: 10 } }
   );
 }
 
@@ -27,6 +30,7 @@ export async function getProject(slug: string) {
       "image": image.asset->url,
       "gallery": gallery[].asset->url,
       url,
+      buttonText,
       content
     }`,
     { slug }

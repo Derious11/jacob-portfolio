@@ -9,5 +9,6 @@ export type Project = {
   image: string;
   gallery: string[];
   url: string;
+  buttonText: string;
   content: PortableTextBlock[];
 };

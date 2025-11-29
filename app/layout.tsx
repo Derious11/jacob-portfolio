@@ -1,19 +1,19 @@
 import "./globals.css";
 import Navbar from "./components/Navbar"; // Import the Navbar
+import { Oswald, Inter } from "next/font/google";
+
+const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
   title: "Jacob Clement | Visual Storyteller",
   description: "Portfolio of Jacob Clement, 2D Animator and Storyboard Artist.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-white text-gray-900">
+      <body className={`${oswald.variable} ${inter.variable} bg-zinc-50 text-zinc-900`}>
         <Navbar /> {/* <--- Add Navbar here, ABOVE children */}
         
         <main>
